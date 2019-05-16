@@ -74,6 +74,7 @@ class MainActivity : Activity() {
     repoList.layoutManager = LinearLayoutManager(this)
 
     val url = "https://api.github.com/search/repositories?q=mario+language:kotlin&sort=stars&order=desc"
+    
     if (isNetworkConnected()) {
       doAsync {
         val result = Request().run()
