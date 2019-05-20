@@ -63,6 +63,7 @@ class MainActivity : Activity() {
       response?.isSuccessful.let {
         val resultList = RepoResult(response?.body()?.items ?: emptyList())
         repoList.adapter = RepoListAdapter(resultList)
+        Log.e("MainActivity", "Deu certo")
       }
     }
   }
@@ -75,14 +76,18 @@ class MainActivity : Activity() {
 
     val url = "https://api.github.com/search/repositories?q=mario+language:kotlin&sort=stars&order=desc"
 
-    
+
     if (isNetworkConnected()) {
-      doAsync {
-        val result = Request().run()
-        uiThread {
-          repoList.adapter = RepoListAdapter(result)
-        }
-      }
+//      repoRetriever.getRepositories(callback)
+
+//      doAsync {
+//        val result = Request().run()
+//        uiThread {
+//          repoList.adapter = RepoListAdapter(result)
+//        }
+//      }
+      repoRetriever.getRepositories(callback)
+
 
     } else {
       AlertDialog.Builder(this).setTitle("No Internet Connection")
@@ -92,7 +97,7 @@ class MainActivity : Activity() {
     }
 
     refreshButton.setOnClickListener {
-      repoRetriever.getRepositories(callback)
+      repoRetriever.getSearch(callback)
     }
 
   }

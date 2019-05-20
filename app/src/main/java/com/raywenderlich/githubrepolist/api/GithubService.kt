@@ -5,7 +5,7 @@ import retrofit2.Call
 import retrofit2.http.GET
 
 interface GithubService {
-    @GET("/repositories")
+    @GET("/search/repositories?q=mario+language:kotlin&sort=stars&order=desc")
     fun retrieveRepositories(): Call<RepoResult>
 
     @GET("/search/repositories?q=language:kotlin&sort=stars&order=desc") //sample search
