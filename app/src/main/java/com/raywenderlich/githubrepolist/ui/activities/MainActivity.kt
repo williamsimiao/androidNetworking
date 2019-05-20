@@ -66,6 +66,7 @@ class MainActivity : Activity() {
         Log.e("MainActivity", "Deu certo")
       }
     }
+
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,20 +75,8 @@ class MainActivity : Activity() {
 
     repoList.layoutManager = LinearLayoutManager(this)
 
-    val url = "https://api.github.com/search/repositories?q=mario+language:kotlin&sort=stars&order=desc"
-
-
     if (isNetworkConnected()) {
-//      repoRetriever.getRepositories(callback)
-
-//      doAsync {
-//        val result = Request().run()
-//        uiThread {
-//          repoList.adapter = RepoListAdapter(result)
-//        }
-//      }
-      repoRetriever.getRepositories(callback)
-
+      repoRetriever.getRepositories("mario+language:kotlin", callback)
 
     } else {
       AlertDialog.Builder(this).setTitle("No Internet Connection")
@@ -97,7 +86,7 @@ class MainActivity : Activity() {
     }
 
     refreshButton.setOnClickListener {
-      repoRetriever.getSearch(callback)
+      repoRetriever.getRepositories("mario+language:kotlin", callback)
     }
 
   }

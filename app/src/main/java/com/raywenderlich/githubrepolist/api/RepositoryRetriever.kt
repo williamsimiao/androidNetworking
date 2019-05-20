@@ -6,6 +6,8 @@ import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+
+
 class RepositoryRetriever {
     private val service: GithubService
 
@@ -27,11 +29,13 @@ class RepositoryRetriever {
         call.enqueue(callback)
     }
 
-    fun getRepositories(callback: Callback<RepoResult>) {
-        val call = service.retrieveRepositories()
+    fun getRepositories(umaPalavra: String, callback: Callback<RepoResult>) {
+        val data = hashMapOf("q" to umaPalavra)
+        data.put("sort", "stars")
+        data.put("order", "desc")
+
+        val call = service.retrieveRepositories(data)
+        Log.e("RepoRetriver", "REQUEST: " + call.request().url().toString())
         call.enqueue(callback)
-        Log.e("RepoReetriver", "REAUEST: " + call.request().url().toString())
-
-
     }
 }
