@@ -1,5 +1,6 @@
 package com.raywenderlich.githubrepolist.api
 
+import android.util.Log
 import com.raywenderlich.githubrepolist.data.ResponseBody1
 import okhttp3.MediaType
 import okhttp3.RequestBody
@@ -74,6 +75,8 @@ class NetworkManager {
         val json = JSONObject()
         json.put("usr", usr)
         json.put("pwd", pwd)
+
+        Log.e("JSON", json.toString())
 
         val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"), json.toString())
         val call = sessaoRouter.auth(requestBody)

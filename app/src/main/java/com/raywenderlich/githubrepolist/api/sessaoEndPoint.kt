@@ -3,10 +3,7 @@ package com.raywenderlich.githubrepolist.api
 import com.raywenderlich.githubrepolist.data.ResponseBody1
 import okhttp3.RequestBody
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.QueryMap
+import retrofit2.http.*
 
 interface sessaoEndPoint {
 
@@ -17,5 +14,6 @@ interface sessaoEndPoint {
 //    fun searchRepositories(): Call<RepoResult>
 
     @POST("auth")
+    @Headers("Content-type:application/json")
     fun auth(@Body request: RequestBody): Call<ResponseBody1>
 }

@@ -72,6 +72,7 @@ class MainActivity : Activity() {
                 override fun onResponse(call: Call<ResponseBody1>?, response: Response<ResponseBody1>?) {
                     response?.isSuccessful.let {
                         tokenString = "HSM " + response?.body()?.token
+                        Log.e("resposta", response.toString())
                         Log.e("MainActivity", "Deu certo"+tokenString)
                     }
                 }
