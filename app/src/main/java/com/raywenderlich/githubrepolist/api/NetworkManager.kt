@@ -70,6 +70,14 @@ class NetworkManager {
         sessaoRouter = retrofit.create(sessaoEndPoint::class.java)
     }
 
+    fun runClose(token: String, callback: Callback<ResponseBody1>) {
+        val json = JSONObject()
+        Log.e("JSON", json.toString())
+
+        val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"), json.toString())
+        val call = sessaoRouter.close(token)
+        call.enqueue(callback)
+    }
 
     fun runAuth(usr: String, pwd: String, otp: String, callback: Callback<ResponseBody1>) {
         val json = JSONObject()

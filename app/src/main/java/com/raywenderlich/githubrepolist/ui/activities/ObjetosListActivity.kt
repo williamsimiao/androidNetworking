@@ -7,7 +7,9 @@ import com.raywenderlich.githubrepolist.R
 class ObjetosListActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.objetos_list_actity)
+
+
     }
 
 }
