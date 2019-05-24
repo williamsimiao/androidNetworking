@@ -39,9 +39,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import com.raywenderlich.githubrepolist.R
 import com.raywenderlich.githubrepolist.api.NetworkManager
-import com.raywenderlich.githubrepolist.data.RepoResult
 import com.raywenderlich.githubrepolist.data.ResponseBody1
-import com.raywenderlich.githubrepolist.ui.adapters.RepoListAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -50,30 +48,22 @@ import retrofit2.Response
 class MainActivity : Activity() {
 
     private val networkManager = NetworkManager() // 1
-
-    // 2
-//    private val callback = object : Callback<RepoResult> {
-//        override fun onFailure(call: Call<RepoResult>?, t: Throwable?) {
-//            Log.e("MainActivity", "Problem calling Github API", t)
-//        }
-//
-//        override fun onResponse(call: Call<RepoResult>?, response: Response<RepoResult>?) {
-//            response?.isSuccessful.let {
-//                val resultList = RepoResult(response?.body()?.items ?: emptyList())
-//                repoList.adapter = RepoListAdapter(resultList)
-//                Log.e("MainActivity", "Deu certo")
-//            }
-//        }
-//
-//    }
+    private var tokenString: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        repoList.layoutManager = LinearLayoutManager(this)
-
         if (isNetworkConnected()) {
+            Log.d("MainActivity", "Sem NET nao da neh")
+
+        } else {
+//            AlertDialog.Builder(this).setTitle("No Internet Connection")
+//                    .setMessage("Please check your internet connection and try again")
+//                    .setPositiveButton(android.R.string.ok) { _, _ -> }
+//                    .setIcon(android.R.drawable.ic_dialog_alert).show()
+        }
+
+        autenticarButton.setOnClickListener {
             val callback = object : Callback<ResponseBody1> {
                 override fun onFailure(call: Call<ResponseBody1>?, t: Throwable?) {
                     Log.e("MainActivity", "Problem calling Github API", t)
@@ -81,25 +71,13 @@ class MainActivity : Activity() {
 
                 override fun onResponse(call: Call<ResponseBody1>?, response: Response<ResponseBody1>?) {
                     response?.isSuccessful.let {
-                        val resultList = ResponseBody1(response?.body()?.items ?: emptyList())
-                        repoList.adapter = RepoListAdapter(resultList)
+                        tokenString = response?.body()?.token
                         Log.e("MainActivity", "Deu certo")
                     }
                 }
             }
-            networkManager.runAuth("master", "12345678", )
-
-        } else {
-            AlertDialog.Builder(this).setTitle("No Internet Connection")
-                    .setMessage("Please check your internet connection and try again")
-                    .setPositiveButton(android.R.string.ok) { _, _ -> }
-                    .setIcon(android.R.drawable.ic_dialog_alert).show()
+            networkManager.runAuth("master", "12345678", "", callback)
         }
-
-        refreshButton.setOnClickListener {
-            Log.e("MainActivity", "Apertou botao")
-        }
-
     }
 
     private fun isNetworkConnected(): Boolean {
