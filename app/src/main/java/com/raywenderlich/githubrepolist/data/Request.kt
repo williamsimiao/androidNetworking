@@ -42,8 +42,8 @@ class Request() {
     private val COMPLETE_URL = "$URL?$SEARCH"
   }
 
-  fun run(): RepoResult { //2
+  fun run(): ResponseBody1 { //2
     val repoListJsonStr = URL(COMPLETE_URL).readText() //3
-    return Gson().fromJson(repoListJsonStr, RepoResult::class.java) //4
+    return Gson().fromJson(repoListJsonStr, ResponseBody1::class.java) //4
   }
 }

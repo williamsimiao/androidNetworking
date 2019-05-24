@@ -66,13 +66,13 @@ class MainActivity : Activity() {
         autenticarButton.setOnClickListener {
             val callback = object : Callback<ResponseBody1> {
                 override fun onFailure(call: Call<ResponseBody1>?, t: Throwable?) {
-                    Log.e("MainActivity", "Problem calling Github API", t)
+                    Log.e("MainActivity", "Problem calling the API", t)
                 }
 
                 override fun onResponse(call: Call<ResponseBody1>?, response: Response<ResponseBody1>?) {
                     response?.isSuccessful.let {
-                        tokenString = response?.body()?.token
-                        Log.e("MainActivity", "Deu certo")
+                        tokenString = "HSM " + response?.body()?.token
+                        Log.e("MainActivity", "Deu certo"+tokenString)
                     }
                 }
             }
